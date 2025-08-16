@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Array Cardio Day 2</title>
+</head>
+<body>
+  <h1>Array Cardio Day 2</h1>
+  <p>Open your browser console to see the results.</p>
+
+  <script>
+    const people = [
+      { name: 'Wes', year: 1988 },
+      { name: 'Kait', year: 1986 },
+      { name: 'Irv', year: 1970 },
+      { name: 'Lux', year: 2015 }
+    ];
+
+    const comments = [
+      { text: 'Love this!', id: 523423 },
+      { text: 'Super good', id: 823423 },
+      { text: 'You are the best', id: 2039842 },
+      { text: 'Ramen is my fav food ever', id: 123523 },
+      { text: 'Nice Nice Nice!', id: 542328 }
+    ];
+
+    // Some() — is at least one person 19 or older?
+    const isAdult = people.some(person => {
+      const currentYear = new Date().getFullYear();
+      return currentYear - person.year >= 19;
+    });
+    console.log({ isAdult });
+
+    // Every() — is everyone 19 or older?
+    const allAdult = people.every(person => {
+      const currentYear = new Date().getFullYear();
+      return currentYear - person.year >= 19;
+    });
+    console.log({ allAdult });
+
+    // Find() — find the comment with the ID of 823423
+    const comment = comments.find(c => c.id === 823423);
+    console.log(comment);
+
+    // FindIndex() — find where that comment is
+    const index = comments.findIndex(c => c.id === 823423);
+    console.log(index);
+
+    // Delete the comment with splice
+    // comments.splice(index, 1);
+
+    // Or create a new array without the item using slice
+    const newComments = [
+      ...comments.slice(0, index),
+      ...comments.slice(index + 1)
+    ];
+    console.log(newComments);
+  </script>
+</body>
+</html>
