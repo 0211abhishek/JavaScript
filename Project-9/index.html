@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JS30 – Checkbox Challenge</title>
+  <style>
+    .inbox {
+      max-width: 400px;
+      margin: 2rem auto;
+    }
+    .item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.5rem;
+    }
+    .item p {
+      margin-left: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="inbox">
+    <div class="item">
+      <input type="checkbox" />
+      <p>Item 1</p>
+    </div>
+    <div class="item">
+      <input type="checkbox" />
+      <p>Item 2</p>
+    </div>
+    <div class="item">
+      <input type="checkbox" />
+      <p>Item 3</p>
+    </div>
+    <!-- Add more items as needed -->
+  </div>
+
+  <script>
+    const checkboxes = document.querySelectorAll('.inbox input[type="checkbox"]');
+    let lastChecked;
+
+    function handleCheck(e) {
+      let inBetween = false;
+
+      if (e.shiftKey && this.checked) {
+        checkboxes.forEach(checkbox => {
+          if (checkbox === this || checkbox === lastChecked) {
+            inBetween = !inBetween;
+          }
+          if (inBetween) {
+            checkbox.checked = true;
+          }
+        });
+      }
+
+      lastChecked = this;
+    }
+
+    checkboxes.forEach(checkbox => checkbox.addEventListener('click', handleCheck));
+  </script>
+</body>
+</html>
