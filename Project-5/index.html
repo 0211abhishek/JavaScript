@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Reference vs Copy</title>
+</head>
+<body>
+  <script>
+    // Objects by reference
+    const person = {
+      name: 'Wes Bos',
+      age: 80
+    };
+    const anotherPerson = person;
+    anotherPerson.age = 100;
+    console.log(person.age); // 100 — demonstrates reference behavior
+
+    // Creating a shallow copy with Object.assign
+    const personCopy = Object.assign({}, person);
+    personCopy.age = 50;
+    console.log(person.age);     // 100 — original unchanged
+    console.log(personCopy.age); // 50
+
+    // Shallow copy with spread operator
+    const spreadCopy = { ...person };
+    spreadCopy.name = 'Spread Wes';
+    console.log(person.name);     // still 'Wes Bos'
+    console.log(spreadCopy.name); // 'Spread Wes'
+
+    // Shallow copy of arrays
+    const colors = ['red', 'green', 'blue'];
+    const colorsCopy = [...colors];
+    colorsCopy.push('purple');
+    console.log(colors);      // ['red', 'green', 'blue']
+    console.log(colorsCopy);  // ['red', 'green', 'blue', 'purple']
+
+    // Deep copy using JSON methods
+    const nestedObj = {
+      level1: {
+        level2: { name: 'Nested Wes' }
+      }
+    };
+    const deepCopy = JSON.parse(JSON.stringify(nestedObj));
+    deepCopy.level1.level2.name = 'Changed';
+    console.log(nestedObj.level1.level2.name); // remains 'Nested Wes'
+    console.log(deepCopy.level1.level2.name);  // 'Changed'
+
+    // But with object references, nested changes carry over
+    const shallowCopy = Object.assign({}, nestedObj);
+    shallowCopy.level1.level2.name = 'Shallow Changed';
+    console.log(nestedObj.level1.level2.name); // 'Shallow Changed'
+  </script>
+</body>
+</html>
